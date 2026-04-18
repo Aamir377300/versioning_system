@@ -45,6 +45,10 @@ services:
         fromDatabase:
           name: docversioning-db
           property: port
+      - key: DATABASE_URL
+        fromDatabase:
+          name: docversioning-db
+          property: connectionString
       - key: REDIS_URL
         value: ""   # Leave empty if not using Redis on free tier
 

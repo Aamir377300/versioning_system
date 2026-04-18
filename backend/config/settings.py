@@ -20,7 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
     DEBUG=(bool, False)
 )
-environ.Env.read_env(BASE_DIR / '.env', overwrite=False)
+# Only read .env if it exists (local dev). On Render, env vars are injected directly.
+env_file = BASE_DIR / '.env'
+if env_file.exists():
+    environ.Env.read_env(env_file, overwrite=False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -85,16 +88,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB', default='doc_versioning'),
-        'USER': env('POSTGRES_USER', default='admin'),
-        'PASSWORD': env('POSTGRES_PASSWORD', default='secretpassword'),
-        'HOST': env('POSTGRES_HOST', default='127.0.0.1'),
-        'PORT': env('POSTGRES_PORT', default='5432'),
+import dj_database_url
+
+_database_url = os.environ.get('DATABASE_URL')
+if _database_url:
+    DATABASES = {
+        'default': dj_database_url.config(default=_database_url, conn_max_age=600)
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('POSTGRES_DB', default='doc_versioning'),
+            'USER': env('POSTGRES_USER', default='admin'),
+            'PASSWORD': env('POSTGRES_PASSWORD', default='secretpassword'),
+            'HOST': env('POSTGRES_HOST', default='127.0.0.1'),
+            'PORT': env('POSTGRES_PORT', default='5432'),
+        }
+    }
 
 
 # Password validation
