@@ -178,6 +178,9 @@ _cors_all = env.bool('CORS_ALLOW_ALL_ORIGINS', default=False)
 if _cors_all:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[])
+    _origins = env.list('CORS_ALLOWED_ORIGINS', default=[])
+    # Always include the production frontend so a missing env var doesn't break deploys
+    _default_origins = ['https://versioning-system-xi.vercel.app']
+    CORS_ALLOWED_ORIGINS = list(set(_origins + _default_origins))
 
 CORS_ALLOW_CREDENTIALS = True
