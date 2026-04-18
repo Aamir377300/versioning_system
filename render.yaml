@@ -16,7 +16,7 @@ services:
         value: "False"
       # ↓ Replace with your actual frontend URL after first deploy
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://your-app.vercel.app"
+        value: "https://versioning-system-xi.vercel.app"
       # Admin seed credentials (used by seed.py)
       - key: ADMIN_EMAIL
         value: "devansh.dv137@gmail.com"
