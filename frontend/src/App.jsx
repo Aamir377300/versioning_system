@@ -34,7 +34,7 @@ const App = () => {
     
     // Auth inputs
     const [username, setUsername] = useState('admin_user');
-    const [password, setPassword] = useState('password123');
+    const [password, setPassword] = useState('123456');
     const [role, setRole] = useState('VIEWER'); // for register
 
     // Editor inputs
