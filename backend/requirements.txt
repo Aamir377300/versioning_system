@@ -1,0 +1,16 @@
+Django>=5.0
+djangorestframework
+djangorestframework-simplejwt
+django-environ
+django-cors-headers
+psycopg2-binary
+redis
+django-redis
+PyYAML
+pytest
+pytest-django
+inflection
+jsonschema
+python-dateutil
+gunicorn
+whitenoise
