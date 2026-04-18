@@ -4,9 +4,13 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/';
 
 const api = axios.create({
     baseURL: API_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    }
+    headers: { 'Content-Type': 'application/json' },
+});
+
+// Public instance — no auth header (for login, register)
+const publicApi = axios.create({
+    baseURL: API_URL,
+    headers: { 'Content-Type': 'application/json' },
 });
 
 api.interceptors.request.use(config => {
@@ -18,14 +22,14 @@ api.interceptors.request.use(config => {
 });
 
 export const login = async (username, password) => {
-    const { data } = await api.post('token/', { username, password });
+    const { data } = await publicApi.post('token/', { username, password });
     localStorage.setItem('access_token', data.access);
     localStorage.setItem('refresh_token', data.refresh);
     return data;
 };
 
 export const registerUser = async (username, password, role) => {
-    const { data } = await api.post('register/', { username, password, role });
+    const { data } = await publicApi.post('register/', { username, password, role });
     return data;
 };
 

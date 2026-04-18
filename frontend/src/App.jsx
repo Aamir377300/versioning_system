@@ -33,8 +33,8 @@ const App = () => {
     const [shareSuccess, setShareSuccess] = useState('');
     
     // Auth inputs
-    const [username, setUsername] = useState('admin_user');
-    const [password, setPassword] = useState('123456');
+    const [username, setUsername] = useState('renderAdmin');
+    const [password, setPassword] = useState('123');
     const [role, setRole] = useState('VIEWER'); // for register
 
     // Editor inputs
